@@ -14,10 +14,17 @@ vocab_path = "text.txt"
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/rating/<sentence>')
-def get_rating(sentence):
+@app.route('/q/<qnum>/<sentence>')
+def get_rating(qnum, sentence):
+    corr_sentence = cleanText("It stands for Java Development Kit. It is the tool necessary to compile, document and package Java programs.")
+    test_sentence = cleanText(" ".join([w for w in sentence.split('+')]))
+    corr_tensor = torch.tensor(vocab.getSentenceArray(corr_sentence))
+    test_tensor = torch.tensor(vocab.getSentenceArray(test_sentence))
 
-    return 'Hello, World!'
+    rating = model(corr_tensor, test_tensor).detach().numpy()[0][0]
+    print("Rating:", rating)
+
+    return 'Answer rating is: '+str(rating)
 
 if __name__=="__main__":
     model = torch.load(model_path)
