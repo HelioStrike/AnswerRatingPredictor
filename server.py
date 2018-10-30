@@ -1,6 +1,7 @@
 from flask import Flask, render_template, abort, redirect, url_for, request
 import torch
 import random
+import pandas as pd
 
 from Vocab import *
 from model import AttentionModel
@@ -9,7 +10,7 @@ app = Flask(__name__)
 model = None
 vocab = None
 questions = None
-model_path = "saved_models/model1.pt"
+model_path = "saved_models/model2.pt"
 vocab_path = "text.txt"
 
 def return_rating(qid, answer):
@@ -29,11 +30,11 @@ def get_rating(qid, sentence):
     return str(rating)
 
 @app.route('/test')
-@app.route('/test/q/<qid>', methods=['GET', 'POST'])
+@app.route('/test/<qid>', methods=['GET', 'POST'])
 def test(qid=None):
     if qid is None:
         qid = random.randint(0, len(questions)-1)
-        return redirect('/test/q/' + str(qid))
+        return redirect('/test/' + str(qid))
     else:
         question = questions[int(qid)]
         if request.method == 'POST':
@@ -47,7 +48,8 @@ def test(qid=None):
 if __name__=="__main__":
     model = torch.load(model_path)
     model.eval()
-    questions = ["What is JDK?"]
-    correct_answers = ["It stands for Java Development Kit. It is the tool necessary to compile, document and package Java programs."]
+    data = pd.read_csv("data/qs.csv")
+    questions = data["Question"]
+    correct_answers = data["Correct Answer"]
     vocab = getVocab(vocab_path)
     app.run(host="0.0.0.0", port="5010")

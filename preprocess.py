@@ -1,9 +1,18 @@
 from Vocab import *
+import pandas as pd
 
 def main():
-    text = open('text.txt').read()
+    
+    
+    text = open('data/text.txt').read()
     text = replace(text, "/", " or ")
-    open('text.txt', 'w').write(text)
+    
+    data = pd.read_csv("data/ratings.csv")
+    data = data["Answer"]
+    s = " ".join([p for p in data])
+    
+    open('data/text.txt', 'w').write(text+" "+s)
+    
 
 if __name__=='__main__':
     main()

@@ -2,17 +2,50 @@
 <html>
 <head>
     <title>Rating Predictor Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.css">
+    <style>
+            .body {
+              height:100%;
+              width:100%;
+            }
+      
+            .wrapper {
+              height:90%;
+              width:100%;
+            }
+    </style>      
 </head>
 <body>
-    {{question}}
-    <form action="/test/q/{{qid}}" method="post">
-        <p><input type="text" name="answer" placeholder="answer">
-        <p><input type="submit" value="Submit">
-    </form>
-    {% if rating %}
-    <p>Your Answer: {{ answer }}</p>
-    <p>Rating: {{ rating }}</p>
-    {% endif %}
-    <a href="/test"><button>Next</button></a>
+    <div class="ui middle aligned grid wrapper">
+        <div class="column">
+            <div class="ui text container">
+                <div class="ui segment">
+
+                    <div class="ui center aligned huge header">{{question}}</div>
+                    <form class="ui form" action="/test/{{qid}}" method="post">
+                        <div class="field">
+                        <label>Answer</label>
+                        <input type="text" name="answer" placeholder="answer">
+                        </div>
+                        <div class="ui center aligned container">
+                        <button class="ui button" type="submit">Submit</button>
+                        </div>
+                    </form>
+
+                    <br/>
+
+                    <div class="ui center aligned container">
+                        {% if rating %}
+                        <p><b>Your Answer:</b> {{ answer }}</p>
+                        <p><b>Rating:</b> {{ rating }}</p>
+                        {% endif %}            
+                        
+                        <a href="/test"><div class="ui button">Next Question</div></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
