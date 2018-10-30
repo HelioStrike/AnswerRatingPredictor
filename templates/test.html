@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rating Predictor Test</title>
+</head>
+<body>
+    {{question}}
+    <form action="/test/q/{{qid}}" method="post">
+        <p><input type="text" name="answer" placeholder="answer">
+        <p><input type="submit" value="Submit">
+    </form>
+    {% if rating %}
+    <p>Your Answer: {{ answer }}</p>
+    <p>Rating: {{ rating }}</p>
+    {% endif %}
+    <a href="/test"><button>Next</button></a>
+</body>
+</html>
