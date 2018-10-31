@@ -1,0 +1,14 @@
+Question Id,Answer,Rating
+0,Encapsulation Polymorphism Inheritance,0.7
+0,"The main features of OOP are Encapsulation, Polymorphism, and Inheritance.",1
+1,The main advantage of OOP is better manageable code that covers following. The overall understanding of the software is increased as the distance between the language spoken by developers and that spoken by users.  Object orientation eases maintenance by the use of encapsulation.   One can easily change the underlying representation by keeping the methods same.  ,1
+1,The main advantage of OOP is better manageable code.,0.3
+2,"Encapsulation is referred to one of the following two notions. 1) Data hiding: A language feature to restrict access to members of an object. For example, private and protected members in C++. 2) Bundling of data and methods together: Data and methods that operate on that data are bundled together.  ",1
+2,It is data hiding and bundling of data,0.5
+3,Polymorphism means that some code or operations or objects behave differently in different contexts.,1
+3,It is a feature that allows a single object to multiple shapes or forms,0.9
+4,a class is based on another class and uses data and implementation of the other class. The purpose of inheritance is Code Reuse.  ,1
+4,The purpose of inheritance is Code Reuse.  ,0.2
+5,"It stands for Java Development Kit. It is the tool necessary to compile, document and package Java programs.",1
+5,It stands for Java Development Kit,0.7
+5,Java Development Kit,0.5

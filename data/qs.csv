@@ -1,0 +1,7 @@
+Question Id,Question,Correct Answer
+0,What are main features of OOP? ,"The main features of OOP are Encapsulation, Polymorphism, and Inheritance."
+1,Why OOP? ,The main advantage of OOP is better manageable code that covers following.  1) The overall understanding of the software is increased as the distance between the language spoken by developers and that spoken by users.  2) Object orientation eases maintenance by the use of encapsulation.   One can easily change the underlying representation by keeping the methods same.  
+2,What is encapsulation? ,"Encapsulation is referred to one of the following two notions. 1) Data hiding: A language feature to restrict access to members of an object. For example, private and protected members in C++. 2) Bundling of data and methods together: Data and methods that operate on that data are bundled together.  "
+3,What is Polymorphism? How is it supported by C++? ,"Polymorphism means that some code or operations or objects behave differently in different contexts. In C++,  following features support polymorphism.  "
+4,What is Inheritance? What is the purpose? ,"The idea of inheritance is simple, a class is based on another class and uses data and implementation of the other class. The purpose of inheritance is Code Reuse.  "
+5,What is JDK?,"It stands for Java Development Kit. It is the tool necessary to compile, document and package Java programs."
