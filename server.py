@@ -10,7 +10,7 @@ app = Flask(__name__)
 model = None
 vocab = None
 questions = None
-model_path = "saved_models/model2.pt"
+model_path = "saved_models/stsds1.pt"
 vocab_path = "text.txt"
 
 def return_rating(qid, answer):
@@ -25,9 +25,18 @@ def return_rating(qid, answer):
 def get_rating(qid, sentence):
     answer = " ".join([w for w in sentence.split('+')])
     rating = return_rating(int(qid), answer)
-    print("Rating:", rating)
+    if rating > 0.8:
+        grade = "A"
+    elif rating > 0.6:
+        grade = "B"
+    elif rating > 0.4:
+        grade = "C"
+    elif rating > 0.2:
+        grade = "D"
+    else:
+        grade = "F"
 
-    return str(rating)
+    return questions[int(qid)]+" : "+grade
 
 @app.route('/test')
 @app.route('/test/<qid>', methods=['GET', 'POST'])
