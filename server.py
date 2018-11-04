@@ -10,8 +10,10 @@ app = Flask(__name__)
 model = None
 vocab = None
 questions = None
-model_path = "saved_models/stsds1.pt"
-vocab_path = "text.txt"
+model_path = "saved_models/stsds3.pt"
+vocab_path = "stsds-cat.txt"
+embed_size = 128
+hidden_size = 256
 
 def return_rating(qid, answer):
     corr_sentence = cleanText(correct_answers[qid])
@@ -19,24 +21,26 @@ def return_rating(qid, answer):
     corr_tensor = torch.tensor(vocab.getSentenceArray(corr_sentence))
     test_tensor = torch.tensor(vocab.getSentenceArray(test_sentence))
     rating = model(corr_tensor, test_tensor).detach().numpy()[0][0]
+
+    if rating > 0.8:
+        grade = "A"
+    elif rating > 0.775:
+        grade = "B"
+    elif rating > 0.75:
+        grade = "C"
+    elif rating > 0.725:
+        grade = "D"
+    else:
+        grade = "F"
+
     return rating
 
 @app.route('/rate/<qid>/<sentence>')
 def get_rating(qid, sentence):
     answer = " ".join([w for w in sentence.split('+')])
     rating = return_rating(int(qid), answer)
-    if rating > 0.8:
-        grade = "A"
-    elif rating > 0.6:
-        grade = "B"
-    elif rating > 0.4:
-        grade = "C"
-    elif rating > 0.2:
-        grade = "D"
-    else:
-        grade = "F"
-
-    return questions[int(qid)]+" : "+grade
+    
+    return questions[int(qid)]+" : "+rating
 
 @app.route('/test')
 @app.route('/test/<qid>', methods=['GET', 'POST'])
@@ -55,10 +59,9 @@ def test(qid=None):
             
 
 if __name__=="__main__":
-    model = torch.load(model_path)
-    model.eval()
-    data = pd.read_csv("data/qs.csv")
-    questions = data["Question"]
-    correct_answers = data["Correct Answer"]
+    data = pd.read_csv("qna.csv")
+    questions = data["question"]
+    correct_answers = data["answer"]
     vocab = getVocab(vocab_path)
+    model = torch.load(model_path)
     app.run(host="0.0.0.0", port="5010")
