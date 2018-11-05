@@ -22,6 +22,11 @@ def return_rating(qid, answer):
     test_tensor = torch.tensor(vocab.getSentenceArray(test_sentence))
     rating = model(corr_tensor, test_tensor).detach().numpy()[0][0]
 
+    return rating
+
+def return_grade(qid, answer):
+    rating = return_rating(qid, answer)
+
     if rating > 0.8:
         grade = "A"
     elif rating > 0.775:
@@ -33,14 +38,14 @@ def return_rating(qid, answer):
     else:
         grade = "F"
 
-    return rating
+    return grade
 
 @app.route('/rate/<qid>/<sentence>')
-def get_rating(qid, sentence):
+def get_grade(qid, sentence):
     answer = " ".join([w for w in sentence.split('+')])
-    rating = return_rating(int(qid), answer)
+    grade = return_grade(int(qid), answer)
     
-    return questions[int(qid)]+" : "+rating
+    return questions[int(qid)]+" : "+grade
 
 @app.route('/test')
 @app.route('/test/<qid>', methods=['GET', 'POST'])
