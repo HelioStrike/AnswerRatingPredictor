@@ -15,17 +15,17 @@ vocab_path = "stsds-cat.txt"
 embed_size = 128
 hidden_size = 256
 
-def return_rating(qid, answer):
-    corr_sentence = cleanText(correct_answers[qid])
-    test_sentence = cleanText(answer)
+def return_rating(corr, res):
+    corr_sentence = cleanText(corr)
+    test_sentence = cleanText(res)
     corr_tensor = torch.tensor(vocab.getSentenceArray(corr_sentence))
     test_tensor = torch.tensor(vocab.getSentenceArray(test_sentence))
     rating = model(corr_tensor, test_tensor).detach().numpy()[0][0]
 
     return rating
 
-def return_grade(qid, answer):
-    rating = return_rating(qid, answer)
+def return_grade(corr, res):
+    rating = return_rating(corr, res)
 
     if rating > 0.8:
         grade = "A"
@@ -43,9 +43,13 @@ def return_grade(qid, answer):
 @app.route('/rate/<qid>/<sentence>')
 def get_grade(qid, sentence):
     answer = " ".join([w for w in sentence.split('+')])
-    grade = return_grade(int(qid), answer)
+    grade = return_grade(answers[qid], answer)
     
     return questions[int(qid)]+" : "+grade
+
+@app.route('/compare/<corr>/<res>')
+def get_grade_sentences(corr, res):    
+    return return_grade(corr, res)
 
 @app.route('/test')
 @app.route('/test/<qid>', methods=['GET', 'POST'])
