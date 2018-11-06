@@ -43,13 +43,13 @@ def return_grade(corr, res):
 @app.route('/rate/<qid>/<sentence>')
 def get_grade(qid, sentence):
     answer = " ".join([w for w in sentence.split('+')])
-    grade = return_grade(answers[qid], answer)
+    grade = return_grade(correct_answers[qid], answer)
     
     return questions[int(qid)]+" : "+grade
 
 @app.route('/compare/<corr>/<res>')
 def get_grade_sentences(corr, res):    
-    return return_grade(corr, res)
+    return return_grade(" ".join([w for w in corr.split('+')]), " ".join([w for w in res.split('+')]))
 
 @app.route('/test')
 @app.route('/test/<qid>', methods=['GET', 'POST'])
