@@ -10,7 +10,7 @@ app = Flask(__name__)
 model = None
 vocab = None
 questions = None
-model_path = "saved_models/stsds3.pt"
+model_path = "saved_models/stsds5.pt"
 vocab_path = "stsds-cat.txt"
 embed_size = 128
 hidden_size = 256
@@ -18,16 +18,19 @@ hidden_size = 256
 def return_rating(corr, res):
     corr_sentence = cleanText(corr)
     test_sentence = cleanText(res)
+    print(corr_sentence)
+    print(test_sentence)
     corr_tensor = torch.tensor(vocab.getSentenceArray(corr_sentence))
     test_tensor = torch.tensor(vocab.getSentenceArray(test_sentence))
     rating = model(corr_tensor, test_tensor).detach().numpy()[0][0]
+    print(rating)
 
     return rating
 
 def return_grade(corr, res):
     rating = return_rating(corr, res)
 
-    if rating > 0.8:
+    if rating > 0.825:
         grade = "A"
     elif rating > 0.775:
         grade = "B"
