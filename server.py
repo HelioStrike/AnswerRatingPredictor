@@ -30,13 +30,13 @@ def return_rating(corr, res):
 def return_grade(corr, res):
     rating = return_rating(corr, res)
 
-    if rating > 0.825:
+    if rating > 0.85:
         grade = "A"
     elif rating > 0.775:
         grade = "B"
-    elif rating > 0.75:
+    elif rating > 0.70:
         grade = "C"
-    elif rating > 0.725:
+    elif rating > 0.625:
         grade = "D"
     else:
         grade = "F"
