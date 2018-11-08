@@ -18,12 +18,9 @@ hidden_size = 256
 def return_rating(corr, res):
     corr_sentence = cleanText(corr)
     test_sentence = cleanText(res)
-    print(corr_sentence)
-    print(test_sentence)
     corr_tensor = torch.tensor(vocab.getSentenceArray(corr_sentence))
     test_tensor = torch.tensor(vocab.getSentenceArray(test_sentence))
     rating = model(corr_tensor, test_tensor).detach().numpy()[0][0]
-    print(rating)
 
     return rating
 
@@ -64,8 +61,8 @@ def test(qid=None):
         question = questions[int(qid)]
         if request.method == 'POST':
             answer = request.form["answer"]
-            rating = return_rating(int(qid), answer)
-            return render_template("test.html", qid=qid, question=question, answer=answer, rating=rating)
+            grade = return_grade(correct_answers[int(qid)], answer)
+            return render_template("test.html", qid=qid, question=question, answer=answer, grade=grade)
 
         return render_template("test.html", qid=qid, question=question)
             
