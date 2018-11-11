@@ -27,29 +27,29 @@ def return_rating(corr, res):
 def return_grade(corr, res):
     rating = return_rating(corr, res)
 
-    if rating > 0.80:
+    if rating > 0.8:
         grade = "A"
-    elif rating > 0.75:
+    elif rating > 0.7:
         grade = "B"
-    elif rating > 0.70:
+    elif rating > 0.60:
         grade = "C"
-    elif rating > 0.625:
+    elif rating > 0.40:
         grade = "D"
     else:
         grade = "F"
 
-    return grade
+    return rating, grade
 
 @app.route('/rate/<qid>/<sentence>')
 def get_grade(qid, sentence):
     answer = " ".join([w for w in sentence.split('+')])
-    grade = return_grade(correct_answers[qid], answer)
+    _, grade = return_grade(correct_answers[qid], answer)
     
     return questions[int(qid)]+" : "+grade
 
 @app.route('/compare/<corr>/<res>')
 def get_grade_sentences(corr, res):    
-    return return_grade(" ".join([w for w in corr.split('+')]), " ".join([w for w in res.split('+')]))
+    return return_grade(" ".join([w for w in corr.split('+')]), " ".join([w for w in res.split('+')]))[1]
 
 @app.route('/test')
 @app.route('/test/<qid>', methods=['GET', 'POST'])
@@ -61,8 +61,8 @@ def test(qid=None):
         question = questions[int(qid)]
         if request.method == 'POST':
             answer = request.form["answer"]
-            grade = return_grade(correct_answers[int(qid)], answer)
-            return render_template("test.html", qid=qid, question=question, answer=answer, grade=grade)
+            rating, grade = return_grade(correct_answers[int(qid)], answer)
+            return render_template("test.html", qid=qid, question=question, answer=answer, grade=grade, rating=rating)
 
         return render_template("test.html", qid=qid, question=question)
             

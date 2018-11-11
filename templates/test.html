@@ -37,12 +37,41 @@
                     <div class="ui center aligned container">
                         {% if grade %}
                         <p><b>Your Answer:</b> {{ answer }}</p>
-                        <p><b>Grade:</b> {{ grade }}</p>
+                        <p><b>Grade:</b> {{ grade }} (Rating: {{ rating }})</p>
                         {% endif %}            
                         
                         <a href="/test"><div class="ui button">Next Question</div></a>
                     </div>
-
+                    
+                    <br/>
+                    
+                    <div class="ui center aligned container">
+                        <div class="ui big header">Grade - Rating Table</div>
+                        <table class="ui celled table">
+                        <thead>
+                          <tr><th>Grade</th>
+                          <th>Rating</th>
+                        </tr></thead>
+                        <tbody>
+                          <tr>
+                            <td data-label="Grade">A</td>
+                            <td data-label="Rating">> 0.8</td>
+                          </tr>
+                          <tr>
+                            <td data-label="Grade">B</td>
+                            <td data-label="Rating">> 0.7</td>
+                          </tr>
+                          <tr>
+                            <td data-label="Grade">C</td>
+                            <td data-label="Rating">> 0.6</td>
+                          </tr>
+                          <tr>
+                            <td data-label="Grade">D</td>
+                            <td data-label="Rating">> 0.4</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 import string
+import random
 import nltk
 from nltk.stem.wordnet import WordNetLemmatizer
 
@@ -31,12 +32,18 @@ class Vocabulary:
 
         self.vocab_size = len(self.vocab)
         self.word2ix = {self.vocab[i]:i for i in range(len(self.vocab))}
-        self.ix2word = {self.vocab[i]:i for i in range(len(self.vocab))}
+        self.ix2word = {i:self.vocab[i] for i in range(len(self.vocab))}
             
-    def getSentenceArray(self, text):
+    def getSentenceArray(self, text, dne_prob=None):
+        if dne_prob is None:
+            dne_prob = 0 
         text = cleanText(text)
         arr = []
         for w in text.split(' '):
+            if dne_prob > 0 and random.uniform(0, 1) < dne_prob:
+                arr.append(self.word2ix["<dne>"])
+                continue
+
             word = self.lmt.lemmatize(w, 'v')
             if word == w:
                 word = self.lmt.lemmatize(w, 'n')
@@ -46,5 +53,8 @@ class Vocabulary:
                 arr.append(self.word2ix["<dne>"])
         return arr
     
+    def getRandomSentenceArray(self, slen):
+        return [random.randint(0, self.vocab_size-1) for i in range(slen)]
+
     def size(self):
         return self.vocab_size
