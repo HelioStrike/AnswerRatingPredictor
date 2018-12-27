@@ -10,7 +10,7 @@ app = Flask(__name__)
 model = None
 vocab = None
 questions = None
-model_path = "saved_models/stsds4.pt"
+model_path = "saved_models/stsds9.pt"
 vocab_path = "stsds-cat.txt"
 embed_size = 128
 hidden_size = 256
@@ -27,13 +27,13 @@ def return_rating(corr, res):
 def return_grade(corr, res):
     rating = return_rating(corr, res)
 
-    if rating > 0.8:
+    if rating > 0.6:
         grade = "A"
-    elif rating > 0.7:
+    elif rating > 0.525:
         grade = "B"
-    elif rating > 0.60:
+    elif rating > 0.45:
         grade = "C"
-    elif rating > 0.40:
+    elif rating > 0.3:
         grade = "D"
     else:
         grade = "F"
