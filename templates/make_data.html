@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rating Predictor Test - Make Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.css">
+    <style>
+        .body {
+          height:100%;
+          width:100%;
+        }
+  
+        .wrapper {
+          height:90%;
+          width:100%;
+        }
+    </style>            
+</head>
+<body>
+    <div class="ui middle aligned grid wrapper">
+        <div class="column">
+            <div class="ui text container">
+                <div class="ui segment">
+
+                    <div class="ui center aligned huge header" style="margin:32px;">Enter values between 0 and 1!!!</div>
+
+                    <hr>
+
+                    <form class="ui form" action="/make_data/" method="post">
+                        <div class="ui center aligned big header">{{questions[0]}}</div>
+                        <p>{{answers[0]}}</p>
+    
+                        <div class="field">
+                        <input type="text" name="grade0" placeholder="Grade">
+                        </div>
+
+                        <div class="ui center aligned big header">{{questions[1]}}</div>
+                        <p>{{answers[1]}}</p>
+    
+                        <div class="field">
+                        <input type="text" name="grade1" placeholder="Grade">
+                        </div>
+                        
+                        <div class="ui center aligned big header">{{questions[2]}}</div>
+                        <p>{{answers[2]}}</p>
+    
+                        <div class="field">
+                        <input type="text" name="grade2" placeholder="Grade">
+                        </div>
+                        
+
+                        <div class="ui center aligned container">
+                        <button class="ui button" type="submit">Submit</button>
+                        </div>
+                    </form>
+
+                    <br/>
+                                        
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
