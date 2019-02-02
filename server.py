@@ -76,10 +76,7 @@ def test(qid=None):
         return redirect('/test/' + str(qid))
     else:
         question = questions[int(qid)]
-        print("hi1")
-        print(request.method)
         if request.method == 'POST':
-            print("hi2")
             answer = request.form["answer"]
             rating, grade = return_grade(correct_answers[int(qid)], answer)
             return render_template("test.html", qid=qid, question=question, answer=answer, grade=grade, rating=rating)
