@@ -23,12 +23,10 @@ def getVocab(fname):
     return Vocabulary(cleanText(open(fname).read()))
 
 #tampers input text
-def tamper_text(txt, tamper_factor=0.5):
-    sentence_array = txt.split('. ')
-    random.shuffle(sentence_array)
-    txt = '. '.join(sentence_array)
+def tamper_text(txt, tamper_factor=0.2):
     word_array = txt.split(' ')
     word_array = [w for w in word_array if not (random.uniform(0,1) > max(0,min(1-tamper_factor,1)))]
+    print(' '.join(word_array))
     return ' '.join(word_array)
 
 #Vocabulary class
